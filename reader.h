@@ -3,9 +3,9 @@
 #include <fstream>
 #include <cstddef>
 #include <iostream>
-#include <assert.h>
 
 #include "encoderType.h"
+#include "exception.h"
 
 #include <boost/dynamic_bitset.hpp>
 
@@ -39,8 +39,7 @@ public:
                 break;
             }
             if (current_byte_ == size_) {
-                assert(false);
-                // TODO throw exception
+                throw ReaderException("Trying to read after EOF.");
             }
             in_.get(tmp_);
             buffer_ = tmp_;

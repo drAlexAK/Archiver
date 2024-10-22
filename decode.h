@@ -1,10 +1,10 @@
+
 #pragma once
 #include "reader.h"
 #include "writer.h"
 #include "trie.h"
 #include "encoderType.h"
-
-#include <iostream>
+#include "exception.h"
 
 std::unordered_map<EncodingType, DBitset> DecodeNormalizedForm(std::vector<EncodingType> &alph,
                                                                std::vector<size_t> &lens) {
@@ -24,12 +24,12 @@ EncodingType GetNextSymbol(Reader &reader, TrieNode *&node, TrieNode *const &hea
         bool bit = reader.Read(1)[0];
         if (bit) {
             if (!node->GetRight()) {
-                // TODO throw exception
+                throw DecodeException("incorrect bit sequence.");
             }
             node = node->GetRight();
         } else {
             if (!node->GetLeft()) {
-                // TODO throw exception
+                throw DecodeException("incorrect bit sequence.");
             }
             node = node->GetLeft();
         }
@@ -78,7 +78,6 @@ void Decode(const char *file_name) {
             if (symbol == ONE_MORE_FILE) {
                 writer.Flush();
                 out.close();
-                std::cout << "A" << std::endl;
                 break;
             } else if (symbol == ARCHIVE_END) {
                 Trie::Clear(head);

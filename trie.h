@@ -19,21 +19,21 @@ public:
     TrieNode* left_ = nullptr;
     TrieNode* right_ = nullptr;
     TrieNode()
-        : ch_(0),
-          min_in_subtree_(EncodingTypeMax),
-          quantity_(0),
-          is_terminated_(false),
-          left_(nullptr),
-          right_(nullptr) {
+            : ch_(0),
+              min_in_subtree_(EncodingTypeMax),
+              quantity_(0),
+              is_terminated_(false),
+              left_(nullptr),
+              right_(nullptr) {
     }
     TrieNode(EncodingType ch, TrieNode* left, TrieNode* right, size_t quantity, bool is_terminated,
-                EncodingType min_in_subtree)
-        : ch_(ch),
-          min_in_subtree_(min_in_subtree),
-          quantity_(quantity),
-          is_terminated_(is_terminated),
-          left_(left),
-          right_(right) {
+             EncodingType min_in_subtree)
+            : ch_(ch),
+              min_in_subtree_(min_in_subtree),
+              quantity_(quantity),
+              is_terminated_(is_terminated),
+              left_(left),
+              right_(right) {
     }
 
     EncodingType GetChar() const {
@@ -103,7 +103,7 @@ public:
 
     static TrieNode* Merge(TrieNode* left, TrieNode* right) {
         TrieNode* head = new TrieNode(0, left, right, left->GetQuantity() + right->GetQuantity(), false,
-                                            std::min(left->GetMinInSubtree(), right->GetMinInSubtree()));
+                                      std::min(left->GetMinInSubtree(), right->GetMinInSubtree()));
         return head;
     }
     static std::unordered_map<EncodingType, boost::dynamic_bitset<>> GetEncodingTable(TrieNode* head) {

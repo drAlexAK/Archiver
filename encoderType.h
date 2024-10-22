@@ -16,7 +16,7 @@ constexpr const EncodingType ARCHIVE_END = 258;
 using DBitset = boost::dynamic_bitset<>;
 
 DBitset ConvertEncodingTypeToBitset(EncodingType a) {
-    boost::dynamic_bitset result;
+    DBitset result;
     for (size_t i = 0; i < ByteSize; ++i) {
         result.push_back(a >> i & 1);
     }

@@ -5,6 +5,7 @@
 #include "reader.h"
 #include "writer.h"
 #include "encoderType.h"
+#include "exception.h"
 
 std::unordered_map<EncodingType, int> GetFrequencyOfBytes(const std::string_view &file_name, Reader &reader) {
     std::unordered_map<EncodingType, int> result;
@@ -22,7 +23,7 @@ std::unordered_map<EncodingType, int> GetFrequencyOfBytes(const std::string_view
 }
 
 std::pair<std::unordered_map<EncodingType, DBitset>, std::vector<std::pair<EncodingType, DBitset>>> Normalize(
-    const std::unordered_map<EncodingType, DBitset> &dict) {
+        const std::unordered_map<EncodingType, DBitset> &dict) {
     std::vector<std::pair<EncodingType, size_t>> pairs_of_char_and_len;
     for (auto &[a, b] : dict) {
         pairs_of_char_and_len.push_back(std::make_pair(b.size(), a));

@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <functional>
 
+#include "exception.h"
+
 template <typename T>
 class Heap {
     std::function<bool(T, T)> cmp_;
@@ -53,13 +55,13 @@ class Heap {
     }
 
 public:
-    explicit Heap(auto fun) {
-        cmp_ = fun;
+    explicit Heap(auto cmp) {
+        cmp_ = cmp;
         size_ = 0;
         tree_.push_back(T());
     }
-    explicit Heap(size_t size, auto fun) {
-        cmp_ = fun;
+    explicit Heap(size_t size, auto cmp) {
+        cmp_ = cmp;
         size_ = 0;
         tree_.reserve(size + 1);
         tree_.push_back(T());
@@ -80,9 +82,7 @@ public:
     }
     T Top() const {
         if (Empty()) {
-            // TODO
-            assert(false);
-            // throw exception
+            throw HeapException("Trying to Pop() from empty Heap.");
         }
         return tree_[1];
     }
