@@ -8,6 +8,7 @@ public:
     const char *what() const noexcept override {
         return message_.c_str();
     }
+
     ArchiverException(const std::string &ex_name, const std::string &message) {
         message_ = ex_name + " with message " + message;
     }
